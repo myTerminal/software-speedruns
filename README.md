@@ -16,6 +16,12 @@ Almost every problem has a solution and according to what I've seen in the last 
 
 **Bonus:** Rust may not be the only topic here, there could be many other languages in the future!
 
+## Potential uses of this project
+
+- An ultra-quick, to-the-point reference for curious programming enthusiasts
+- A cheatsheet for practicing online coding problems
+- My personal notebook and secondary brain (because I figure that my primary one is very volatile)
+
 ## Contents
 
 (It's a little lonely here at the moment, hopefully not for long)
@@ -24,5 +30,5 @@ Almost every problem has a solution and according to what I've seen in the last 
 
 ## To-Do
 
-- Obviously, get as many concepts for Rust as possible
-- Look for more languages that can be added here
+- Add more Rust concepts
+- Evaluate other languages that can be added here
