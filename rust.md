@@ -1095,7 +1095,7 @@ is equivalent to
 ### Using an external crate
 
 1. Reference the crate in *Cargo.toml* file
-2. Use `extern cate rand;` on the first line of a file to declare that you'll be using external create called 'rand'
+2. Run `cargo build` or `cargo run` so that the dependency is fetched and is available to be consumed
 3. Bring relevant symbols to prelude with `use rand::Rng;`
 4. Consume the features from the imported external crate
 
