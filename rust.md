@@ -69,13 +69,13 @@ OR
 
 #### Explicit types
 
-    let mut count: i16 = 5; // A unsigned integer
+    let mut count: i16 = 5; // A signed integer
 
-    let mut count: isize = 5; // A unsigned integer depending on processor bit-length
+    let mut count: isize = 5; // A signed integer depending on processor bit-length
 
-    let mut level: u16 = -3; // A signed integer
+    let mut level: u16 = -3; // An unsigned integer
 
-    let mut level: usize = -3; // A signed integer depending on processor bit-length
+    let mut level: usize = -3; // An unsigned integer depending on processor bit-length
 
     let ratio: f64 = 1.5; // A floating point number
 
@@ -87,7 +87,7 @@ OR
 
     const MAX_LIMIT: isize = 300; // Global constant without an address (like pre-processor directives in 'C')
 
-    statis MAX_LIMIT: isize = 300; // Global constant that can be used by reference
+    static MAX_LIMIT: isize = 300; // Global constant that can be used by reference
 
 ## Blocks & Scopes
 
@@ -96,9 +96,9 @@ OR
     { // 'count' does not exist
         let count = 5; // 'count' is valid from this point onwards
         ...
-        // 'count' can be access here
+        // 'count' can be accessed here
         ...
-    } // 'count' is no exists
+    } // 'count' does not exists anymore
 
 ### Shadowing inside an inner scope
 
@@ -107,7 +107,7 @@ OR
     {
         let count = 5; // A different 'count' is defined
         ...
-        // Inner 'count' can be access here
+        // Inner 'count' can be accessed here
         ...
     } // Outer 'count' takes over
 
@@ -125,7 +125,7 @@ OR
         println!("Entering block...");
         let count = 0;
         ...
-        println!("Exiting block..."); // Statement as it ends with a ';'
+        println!("Exiting block..."); // This is a statement as it ends with a ';'
     }
 
 ### A block that returns a value
@@ -134,7 +134,7 @@ OR
         println!("Entering block...");
         let count = 0;
         ...
-        count // Expression as it doesn't end with a ';'
+        count // This is an expression as it doesn't end with a ';'
     };
 
 ## Operators
@@ -194,7 +194,7 @@ OR
     let x = 5; // Implicitly stored on stack
 
     let x = Box::new(5); // Explicitly made to be stored on heap
-    let value_of_x = *x; // Dereference the variable to get its value back on stack
+    let value_of_x = *x; // De-reference the variable to get its value back on stack
 
 ## Conditionals
 
@@ -298,7 +298,7 @@ OR
 
 #### Looping through a simple range
 
-    for x in 1..11 { // Runs 1 through 10
+    for x in 1..11 { // Runs for 1 through 10
         println!("{}", x);
     }
 
@@ -635,7 +635,7 @@ OR
 
 OR
 
-    let statement:&'static str = "I'm Commander Shepard";
+    let statement: &'static str = "I'm Commander Shepard";
 
 ##### Getting characters from a string slice
 
@@ -1045,7 +1045,7 @@ is equivalent to
 ### Declaring static functions in traits
 
     trait Vehicle {
-        fn create(name: &'static str, speed: usize) -> Self // Imposes a static function for all implmenting types
+        fn create(name: &'static str, speed: usize) -> Self // Imposes a static function for all implementing types
 
         fn start(&self) {
             println!("Starting...");
@@ -1095,14 +1095,14 @@ is equivalent to
 ### Using an external crate
 
 1. Reference the crate in *Cargo.toml* file
-2. Run `cargo build` or `cargo run` so that the dependency is fetched and is available to be consumed
+2. Run `cargo build` or `cargo run` so the dependency is fetched and is available to be consumed
 3. Bring relevant symbols to prelude with `use rand::Rng;`
 4. Consume the features from the imported external crate
 
 ### Creating your own crate
 
 - Create a *Cargo.toml* file to define crate metadata
-- Create a *main.rs* for an executable create or a *lib.rs* for a library crate
+- Create a *main.rs* for an executable crate or a *lib.rs* for a library crate
 - Library crates have code organized in `mod` (modules)
 - Mark usable symbols as `pub` (public)
 
