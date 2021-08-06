@@ -1,10 +1,10 @@
-# language-speedruns
+# software-speedruns
 
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0)
 
-An ultra-quick reference for programming languages with minimal theory and maximum code snippets
+An ultra-quick reference for software tools and programming languages
 
-## Background
+## History/Background
 
 During the final few weeks of the year 2019, and after having attended the [EmacsConf 2019](https://emacsconf.org/2019), I started my adventures with [Rust](https://www.rust-lang.org) (thanks to [Perry E. Metzger](https://twitter.com/perrymetzger) for his amazing and [enlightening presentation](https://media.emacsconf.org/2019/26.html), which itself was a follow-up to [his previous talk](https://www.youtube.com/watch?v=VADudzQGvU8) he presented in 2014).
 
@@ -16,17 +16,16 @@ Almost every problem has a solution and according to what I've seen in the last 
 
 **Bonus:** Rust may not be the only topic here, there could be many other languages in the future!
 
-## Potential uses of this project
+## Projected uses of this project
 
-- An ultra-quick, to-the-point reference for curious programming enthusiasts
+- An ultra-quick, to-the-point reference for curious computer enthusiasts
 - A cheatsheet for practicing online coding problems
-- My personal notebook and secondary brain (because I figure that my primary one is very volatile)
+- My personal notebook and secondary brain (because I figure my other one is reaching its limit with age)
 
 ## Contents
 
-(It's a little lonely here at the moment, hopefully not for long)
-
-1. [Rust](rust.md)
+- [Programming Languages](programming-languages)
+    - [Rust](programming-languages/rust)
 
 ## To-Do
 
