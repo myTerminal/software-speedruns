@@ -25,7 +25,10 @@ Almost every problem has a solution and according to what I've seen in the last 
 ## Contents
 
 - [Programming Languages](programming-languages)
-    - [Rust](programming-languages/rust)
+  - [Rust](programming-languages/rust)
+- [Tools](tools)
+  - Package managers
+    - [XBPS](tools/xbps)
 
 ## To-Do
 
