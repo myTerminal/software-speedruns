@@ -26,6 +26,7 @@ Almost every problem has a solution and according to what I've seen in the last 
 
 - [Programming Languages](programming-languages)
   - [Rust](programming-languages/rust)
+  - [Common Lisp](programming-languages/cl)
 - [Tools](tools)
   - Package managers
     - [XBPS](tools/xbps)
