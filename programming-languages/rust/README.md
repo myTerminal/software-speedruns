@@ -2,9 +2,9 @@
 
 > A language empowering everyone to build reliable and efficient software. - [rust-lang.org](https://www.rust-lang.org)
 
-**PS:** This document is just a quick-reference for Rust and is not (supposed) to be perfect. You can always find a more detailed explanation of any concept mentioned here in [this online book](https://doc.rust-lang.org/1.30.0/book/2018-edition).
+**PS:** This document is just a quick reference for Rust and is not (supposed) to be perfect. You can always find a more detailed explanation of any concept mentioned here in [this online book](https://doc.rust-lang.org/1.30.0/book/2018-edition).
 
-**PPS:** This document is also not complete and most probably not accurate. Please excuse me if I mis-represented any concept of Rust and feel free to contribute with your improvements.
+**PPS:** This document is also not complete and most probably not accurate. Please excuse me if I misrepresented any concept of Rust and feel free to contribute with your improvements.
 
 ## Comments
 
@@ -797,7 +797,7 @@ is equivalent to
         Blue
     }
 
-#### Creating and instance
+#### Creating an instance
 
     let color: Color = Color::Red;
 
@@ -1123,7 +1123,7 @@ is equivalent to
         assert_eq!(2, module::submodule::get_value())
     }
 
-### A sample ignored test
+### A sample of ignored test
 
     #[test]
     #[ignore]
@@ -1136,7 +1136,7 @@ is equivalent to
 ### Sample module headers
 
     //! This is an awesome module
-    //! It works very good
+    //! It works very well
     //!
     //! # Examples
     //! ```
