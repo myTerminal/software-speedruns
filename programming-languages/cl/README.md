@@ -36,12 +36,12 @@ Anything can be turned into data by "quoting" it by prepending the expression wi
 
 Alternatively, the `list` function also creates a list from a set of values.
 
-    (list '+ 2 3); Notice how we had to "quote" the '+' operator/function
+    (list '+ 2 3) ; Notice how we had to "quote" the '+' operator/function
 
 Quasiquoting can be used to embed code within data.
 
-    '(1 (+ 2 3)); Returns the data as-is
-    `(1 ,(+ 2 3)); Returns '(1 5)
+    '(1 (+ 2 3)) ; Returns the data as-is
+    `(1 ,(+ 2 3)) ; Returns '(1 5)
 
 Executing data as code:
 
@@ -67,7 +67,7 @@ A `cons` can also be chained, turning the second element into a `cons` itself:
 
 but when the "tail" of the `cons` is a "nil",
 
-    (cons 'Shepard  (cons 'Joker (cons 'Vakarian . nil)))
+    (cons 'Shepard  (cons 'Joker (cons 'Vakarian nil)))
 
 it turns into a list in Lisp
 
@@ -92,6 +92,13 @@ Defining local variable(s)
           (last-name "Shepard"))
         ...
         )
+
+Defining a set of local variables dependent on one another
+
+    (let* ((a 1)
+           (b (1+ a)))
+       ...
+       )
 
 ## Printing values
 
@@ -207,6 +214,20 @@ Creating an unnamed function (lambda):
     (char-equal #\a #\a) ; Returns t
     (char-equal #\a #\A) ; Returns t
 
+## More operations on numbers
+
+    (random 5) ; Gets a random number between 0 and 4, which is one less than 5
+
+### Operations on strings
+
+Replace text
+
+    (substitute-if #\x #'alphanumericp "cat") ; Replaces all alphanumeric characters in the string "cat" with an "x"
+
+Split strings
+
+    (subseq "Commander" 3 6) ; Gets "man"
+
 ### Logical operations
 
 Regular use
@@ -225,10 +246,9 @@ Shortcut boolean evaluation
     (ash 11 1) ; Turns 11 into 22 by shifting bits once to the left
     (ash 11 -1) ; Turns 11 into 5 by shifting bits once to the right
 
-### More operations on values
+### Operations on functions
 
-    (oddp 1) ; Returns t as "1" is an odd value
-    (evenp 3) ; Returns nil as "3" is an odd value
+    (compliment #'oddp) ; Gets you a function equivalent to #'evenp
 
 ### Operations on lists
 
@@ -266,27 +286,40 @@ Fetching items from association lists (alists):
     (defvar *squad* '((Shepard Human)
                       (Garrus Turian)
                       (Liara Asari)))
-    (assoc 'Garrus *squad*); Returns "(Garrus Turian)"
+    (assoc 'Garrus *squad*) ; Returns "(Garrus Turian)"
 
 Finding items from lists:
 
-    (find 1 '((a 1) (b 2)) :key #'cadr); Returns '(a 1)
+    (find 1 '((a 1) (b 2)) :key #'cadr) ; Returns '(a 1)
 
 Concatenating lists:
 
     (append '(1 2 3) '(4 5 6)) ; Returns '(1 2 3 4 5 6)
 
-Transforming lists:
-
-    (mapcar #'1+ '(1 2 3)); Returns '(2 3 4)
-
 Iterating through lists:
 
-    (mapc #'print '(1 2 3)); Prints each of the elements on a new line
+    (mapc #'print '(1 2 3)) ; Prints each of the elements on a new line
 
 Passing elements in a list to a function as individual arguments:
 
     (apply #'append '((Shepard) (Vakarian)))
+
+Transforming lists:
+
+    (mapcar #'1+ '(1 2 3)) ; Returns '(2 3 4)
+
+Filtering lists:
+
+    (remove-if #'oddp '(1 2 3 4 5)) ; Removes numbers matching the predicate
+    (remove-if-not #'oddp '(1 2 3 4 5)) ; Removes numbers NOT matching the predicate
+
+### More operations on values
+
+    (oddp 1) ; Returns t as "1" is an odd value
+    (evenp 3) ; Returns nil as "3" is an odd value
+
+    (concatenate 'string "Commander" "Shepard") ; Gives "Commander Shepard"
+    (concatenate 'list '(1 2) '(3 4)) ; Gives '(1 2 3 4)
 
 ## False values
 
@@ -346,5 +379,41 @@ The convenient `case`:
 
 ## Loops
 
+Indefinite looping
+
     (loop (princ "Nice")) ; Keeps looping forever
 
+Looping for a fixed number of times
+
+    (loop repeat 5
+        do (print "Hello!")) ; Prints "Hello!" exactly 5 times
+
+Looping with index
+
+    (loop for i from 6 to 10
+        do (print i)) ; Prints numbers between 6 and 9, one less than 10
+
+Looping and collecting values
+
+    (loop repeat 10
+        collect (random 100)) ; Generates 10 random numbers between 0 and 99
+
+## File I/O
+
+### Writing to a file
+
+Writing to a text file using a custom stream
+
+    (with-open-file (my-stream
+                     "~/_store/temp"
+                     :direction :output
+                     :if-exists :supersede)
+        (princ "Hello!" my-stream))
+
+Writing to a text file using `*standard-output*`  stream
+
+    (with-open-file (*standard-output*
+                     "~/_store/temp"
+                     :direction :output
+                     :if-exists :supersede)
+        (princ "Hello!"))
