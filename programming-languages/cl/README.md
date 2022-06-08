@@ -158,6 +158,18 @@ Creating an unnamed function (lambda):
 
     (lambda (x) (* x 2))
 
+### Multiple values
+
+Returning multiple values:
+
+    (values 1 2) ; Returns multiple values
+
+Using the second value:
+
+    (multiple-value-bind (a b) (values 1 3)
+        (princ a)
+        (princ b))
+
 ## Operations
 
 ### Arithmetic
@@ -171,6 +183,7 @@ Creating an unnamed function (lambda):
     (1+ 3) ; Returns 4 as the increment to 3
     (1- 3) ; Returns 2 as the decrement to 3
     (expt 2 3) ; Returns 8 (2^3)
+    (round 3.14) ; Returns two values: 3 and 0.14
 
 ### Comparison
 
@@ -242,86 +255,6 @@ Shortcut boolean evaluation
     (ash 11 1) ; Turns 11 into 22 by shifting bits once to the left
     (ash 11 -1) ; Turns 11 into 5 by shifting bits once to the right
 
-### List
-
-To access a part of a list
-
-    (car '(Shepard Joker Vakarian)) ; Gives 'Shepard
-    (cdr '(Shepard Joker Vakarian)) ; Gives '(Joker Vakarian)
-    (car (cdr '(Shepard Joker Vakarian))) ; Gives 'Joker
-    (cadr '(Shepard Joker Vakarian)) ; Gives 'Joker
-    (cadr '(1 2 3 4 5)) ; Gives 2
-    (cddr '(1 2 3 4 5)) ; Gives '(3 4 5)
-    (caddr '(1 2 3 4 5)) ; Gives 3
-    (cdddr '(1 2 3 4 5)) ; Gives '(4 5)
-    (cadddr '(1 2 3 4 5)) ; Gives 4
-    (cddddr '(1 2 3 4 5)) ; Gives '(5)
-
-There are definitely many more `c*r`s available out-of-the-box, and more can be implemented.
-
-To push an element to the start of a list:
-
-    (defvar *squad* '(Garrus Liara))
-    (push 'Shepard *squad*)
-    *squad* ; Returns '(Shepard Garrus Liara)
-
-To check whether a list contains a particular value
-
-    (member 3 '(1 2 3 4)) ; Returns the rest of the list from the point of a match
-
-Remove duplicate elements
-
-    (remove-duplicates '(1 2 2 3)) ; Returns a list of unique items
-    (remove-duplicates '(1 2 3 3) :test #'equal) ; Determines duplicates based on the test function
-
-To retrieve the first occurrence of a pattern in a list
-
-    (find-if #'evenp '(1 2 3 4)) ; Returns "2" as the first even number in the list
-
-Fetching items from association lists (alists):
-
-    (defvar *squad* '((Shepard Human)
-                      (Garrus Turian)
-                      (Liara Asari)))
-    (assoc 'Garrus *squad*) ; Returns "(Garrus Turian)"
-
-Finding items from lists:
-
-    (find 1 '((a 1) (b 2)) :key #'cadr) ; Returns '(a 1)
-
-Check if at least one element matches the predicate:
-
-    (some #'oddp '(1 2 3)) ; Returns t
-
-Concatenating lists:
-
-    (append '(1 2 3) '(4 5 6)) ; Returns '(1 2 3 4 5 6)
-
-Find difference between two lists:
-
-    (set-difference '(1 2 3) '(2 3)) ; Returns '(1)
-
-Find common elements between two (or more) lists:
-
-    (intersection '(1 2 3) '(2 3 4)) ; Returns '(2 3)
-
-Iterating through lists:
-
-    (mapc #'print '(1 2 3)) ; Prints each of the elements on a new line
-
-Passing elements in a list to a function as individual arguments:
-
-    (apply #'append '((Shepard) (Vakarian)))
-
-Transforming lists:
-
-    (mapcar #'1+ '(1 2 3)) ; Returns '(2 3 4)
-
-Filtering lists:
-
-    (remove-if #'oddp '(1 2 3 4 5)) ; Removes numbers matching the predicate
-    (remove-if-not #'oddp '(1 2 3 4 5)) ; Removes numbers NOT matching the predicate
-
 ### Misc
 
     (oddp 1) ; Returns t as "1" is an odd value
@@ -331,6 +264,7 @@ Filtering lists:
     (concatenate 'string "Commander" "Shepard") ; Gives "Commander Shepard"
     (concatenate 'list '(1 2) '(3 4)) ; Gives '(1 2 3 4)
     (compliment #'oddp) ; Gets you a function equivalent to #'evenp
+    (time (print "1")) ; Prints performance numbers for the code within
 
 ## False values
 
@@ -408,6 +342,147 @@ Looping and collecting values
 
     (loop repeat 10
         collect (random 100)) ; Generates 10 random numbers between 0 and 99
+
+## Data-type: Lists
+
+
+To access a part of a list
+
+    (car '(Shepard Joker Vakarian)) ; Gives 'Shepard
+    (cdr '(Shepard Joker Vakarian)) ; Gives '(Joker Vakarian)
+    (car (cdr '(Shepard Joker Vakarian))) ; Gives 'Joker
+    (cadr '(Shepard Joker Vakarian)) ; Gives 'Joker
+    (cadr '(1 2 3 4 5)) ; Gives 2
+    (cddr '(1 2 3 4 5)) ; Gives '(3 4 5)
+    (caddr '(1 2 3 4 5)) ; Gives 3
+    (cdddr '(1 2 3 4 5)) ; Gives '(4 5)
+    (cadddr '(1 2 3 4 5)) ; Gives 4
+    (cddddr '(1 2 3 4 5)) ; Gives '(5)
+
+There are definitely many more `c*r`s available out-of-the-box, and more can be implemented.
+
+But, to access an element using the index:
+
+    (nth 2 '(a b c)) ; Gets 'c' at index 2
+
+To push an element to the start of a list:
+
+    (defvar *squad* '(Garrus Liara))
+    (push 'Shepard *squad*)
+    *squad* ; Returns '(Shepard Garrus Liara)
+
+To check whether a list contains a particular value
+
+    (member 3 '(1 2 3 4)) ; Returns the rest of the list from the point of a match
+
+Remove duplicate elements
+
+    (remove-duplicates '(1 2 2 3)) ; Returns a list of unique items
+    (remove-duplicates '(1 2 3 3) :test #'equal) ; Determines duplicates based on the test function
+
+To retrieve the first occurrence of a pattern in a list
+
+    (find-if #'evenp '(1 2 3 4)) ; Returns "2" as the first even number in the list
+
+Fetching items from association lists (alists):
+
+    (defvar *squad* '((Shepard Human)
+                      (Garrus Turian)
+                      (Liara Asari)))
+    (assoc 'Garrus *squad*) ; Returns "(Garrus Turian)"
+
+Finding items from lists:
+
+    (find 1 '((a 1) (b 2)) :key #'cadr) ; Returns '(a 1)
+
+Check if at least one element matches the predicate:
+
+    (some #'oddp '(1 2 3)) ; Returns t
+
+Concatenating lists:
+
+    (append '(1 2 3) '(4 5 6)) ; Returns '(1 2 3 4 5 6)
+
+Find difference between two lists:
+
+    (set-difference '(1 2 3) '(2 3)) ; Returns '(1)
+
+Find common elements between two (or more) lists:
+
+    (intersection '(1 2 3) '(2 3 4)) ; Returns '(2 3)
+
+Iterating through lists:
+
+    (mapc #'print '(1 2 3)) ; Prints each of the elements on a new line
+
+Passing elements in a list to a function as individual arguments:
+
+    (apply #'append '((Shepard) (Vakarian)))
+
+Transforming lists:
+
+    (mapcar #'1+ '(1 2 3)) ; Returns '(2 3 4)
+
+Filtering lists:
+
+    (remove-if #'oddp '(1 2 3 4 5)) ; Removes numbers matching the predicate
+    (remove-if-not #'oddp '(1 2 3 4 5)) ; Removes numbers NOT matching the predicate
+
+## Data-type: Arrays
+
+Creating an array
+
+    (make-array 5) ; Returns an empty array with 5 nil values
+
+Reading a value at an index
+
+    (aref numbers 2) ; Reads the value at index 2 within array 'numbers'
+
+Set a value at an index
+
+    (setf (aref numbers 3) 5) ; Sets value at index 3 as 5
+
+## Data-type: Hash-tables
+
+Creating a hash-table
+
+    (make-hash-table) ; Returns a new empty hash-table
+
+Accessing value for a key
+
+    (defvar person (make-hash-table))
+    (gethash 'name person) ; Attempts to read the value for key 'name'. Returns value (if found), and a boolean denoting whether a value was found
+
+Set a value against a key
+
+    (setf (gethash 'name person) "John Shepard")
+
+## Data-type: Structures
+
+Defining a structure:
+
+    (defstruct crew-mate
+        name
+        race
+        class)
+
+Creating an instance of a structure:
+
+    (defparameter *garrus* (make-crew-mate :name "Garrus"
+                                           :race "Turian"
+                                           :class "Solider"))
+
+Creating an instance of a structure from printed representation:
+
+    #S(crew-mate :name "Liara" :race "Asari" :class "Scientist")
+
+Reading properties of a structure:
+
+    (crew-mate-race *garrus*) ; Returns "Turian"
+
+Change property value:
+
+    (setf (crew-mate-class *garrus*) "Friend")
 
 ## File I/O
 
