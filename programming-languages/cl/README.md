@@ -47,7 +47,7 @@ Executing data as code:
 
     (eval '(+ 2 3)) ; Returns '5'
 
-## Lists and cons
+## Lists and cons's
 
 The below could be a list:
 
@@ -158,9 +158,9 @@ Creating an unnamed function (lambda):
 
     (lambda (x) (* x 2))
 
-## Operations on values
+## Operations
 
-### Arithmetic operations
+### Arithmetic
 
     (+ 2 3) ; Returns 5 as the sum of 2 and 3
     (- 3 2) ; Returns 1 as the difference between 3 and 2
@@ -214,11 +214,7 @@ Creating an unnamed function (lambda):
     (char-equal #\a #\a) ; Returns t
     (char-equal #\a #\A) ; Returns t
 
-## More operations on numbers
-
-    (random 5) ; Gets a random number between 0 and 4, which is one less than 5
-
-### Operations on strings
+### String
 
 Replace text
 
@@ -228,7 +224,7 @@ Split strings
 
     (subseq "Commander" 3 6) ; Gets "man"
 
-### Logical operations
+### Logical
 
 Regular use
 
@@ -241,16 +237,12 @@ Shortcut boolean evaluation
     (or (= 2 3) (princ "Nice!"))
     (and (= 2 3) (princ "Great!"))
 
-### Binary operations
+### Binary
 
     (ash 11 1) ; Turns 11 into 22 by shifting bits once to the left
     (ash 11 -1) ; Turns 11 into 5 by shifting bits once to the right
 
-### Operations on functions
-
-    (compliment #'oddp) ; Gets you a function equivalent to #'evenp
-
-### Operations on lists
+### List
 
 To access a part of a list
 
@@ -277,6 +269,11 @@ To check whether a list contains a particular value
 
     (member 3 '(1 2 3 4)) ; Returns the rest of the list from the point of a match
 
+Remove duplicate elements
+
+    (remove-duplicates '(1 2 2 3)) ; Returns a list of unique items
+    (remove-duplicates '(1 2 3 3) :test #'equal) ; Determines duplicates based on the test function
+
 To retrieve the first occurrence of a pattern in a list
 
     (find-if #'evenp '(1 2 3 4)) ; Returns "2" as the first even number in the list
@@ -292,9 +289,21 @@ Finding items from lists:
 
     (find 1 '((a 1) (b 2)) :key #'cadr) ; Returns '(a 1)
 
+Check if at least one element matches the predicate:
+
+    (some #'oddp '(1 2 3)) ; Returns t
+
 Concatenating lists:
 
     (append '(1 2 3) '(4 5 6)) ; Returns '(1 2 3 4 5 6)
+
+Find difference between two lists:
+
+    (set-difference '(1 2 3) '(2 3)) ; Returns '(1)
+
+Find common elements between two (or more) lists:
+
+    (intersection '(1 2 3) '(2 3 4)) ; Returns '(2 3)
 
 Iterating through lists:
 
@@ -313,13 +322,15 @@ Filtering lists:
     (remove-if #'oddp '(1 2 3 4 5)) ; Removes numbers matching the predicate
     (remove-if-not #'oddp '(1 2 3 4 5)) ; Removes numbers NOT matching the predicate
 
-### More operations on values
+### Misc
 
     (oddp 1) ; Returns t as "1" is an odd value
     (evenp 3) ; Returns nil as "3" is an odd value
-
+    (random 5) ; Gets a random number between 0 and 4, which is one less than 5
+    (zerop 1) ; Gets a nil as 1 isn't a zero
     (concatenate 'string "Commander" "Shepard") ; Gives "Commander Shepard"
     (concatenate 'list '(1 2) '(3 4)) ; Gives '(1 2 3 4)
+    (compliment #'oddp) ; Gets you a function equivalent to #'evenp
 
 ## False values
 
@@ -377,7 +388,7 @@ The convenient `case`:
         ((Legion) (princ "Geth"))
         (otherwise (princ "Unknown")))
 
-## Loops
+## Looping
 
 Indefinite looping
 
