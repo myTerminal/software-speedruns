@@ -86,6 +86,11 @@ Change the value of a variable
 
     (setf *count* 3) ; Sets the new value to the variable *count*
 
+Incrementing/decrementing the value of a variable
+
+    (incf *count*) ; Increments the value of the variable *count*
+    (decf *count*) ; Decrements the value of the variable *count*
+
 Defining local variable(s)
 
     (let ((first-name "John")
@@ -157,6 +162,10 @@ Referring to functions by names to pass them around to other functions
 Creating an unnamed function (lambda):
 
     (lambda (x) (* x 2))
+
+Invoking a referenced function:
+
+    (funcall <referenced-function>)
 
 ### Multiple values
 
@@ -264,6 +273,7 @@ Shortcut boolean evaluation
     (random 5) ; Gets a random number between 0 and 4, which is one less than 5
     (compliment #'oddp) ; Gets you a function equivalent to #'evenp
     (time (print "1")) ; Prints performance numbers for the code within
+    (type-of '(1 2 3)) ; Gets the type of a symbol's value
 
 ## False values
 
@@ -341,6 +351,11 @@ Looping and collecting values
 
     (loop repeat 10
         collect (random 100)) ; Generates 10 random numbers between 0 and 99
+
+Performing an action a certain number of times
+
+    (dotimes (i 5)
+        (print "Shepard"))
 
 ## Data-type: Lists
 
@@ -474,6 +489,19 @@ Change property value:
 
     (setf (crew-mate-class *garrus*) "Friend")
 
+Defining default structure properties
+
+    (defstruct point (x 0) (y 0))
+
+Overriding default properties
+
+    (make-point) ; Creates a 'point' with default 'x' and 'y'
+    (make-point :x 2 :y 3) ; Creates a 'point' with the supplied 'x' and 'y' values
+
+Inheriting properties from other structures
+
+    (defstruct (special-point (:include point)))
+
 ## Sequence functions
 
 With their inbuilt type-checking, can work on multiple data-types seamlessly.
@@ -490,6 +518,18 @@ With their inbuilt type-checking, can work on multiple data-types seamlessly.
     (sort '(3 1 2) #'>) ; Returns a sorted sequence
     (concatenate 'string "Commander" "Shepard") ; Gives "Commander Shepard"
     (concatenate 'list '(1 2) '(3 4)) ; Gives '(1 2 3 4)
+
+## "Method overloading" with type-dispatching
+
+An add function for numbers:
+
+    (defmethod add ((a number) (b number))
+        (+ a b))
+
+An add function for lists:
+
+    (defmethod add ((a list) (b list))
+        (append a b))
 
 ## File I/O
 
