@@ -233,10 +233,6 @@ Replace text
 
     (substitute-if #\x #'alphanumericp "cat") ; Replaces all alphanumeric characters in the string "cat" with an "x"
 
-Split strings
-
-    (subseq "Commander" 3 6) ; Gets "man"
-
 ### Logical
 
 Regular use
@@ -255,14 +251,17 @@ Shortcut boolean evaluation
     (ash 11 1) ; Turns 11 into 22 by shifting bits once to the left
     (ash 11 -1) ; Turns 11 into 5 by shifting bits once to the right
 
-### Misc
+### Type-predicates
 
     (oddp 1) ; Returns t as "1" is an odd value
     (evenp 3) ; Returns nil as "3" is an odd value
-    (random 5) ; Gets a random number between 0 and 4, which is one less than 5
     (zerop 1) ; Gets a nil as 1 isn't a zero
-    (concatenate 'string "Commander" "Shepard") ; Gives "Commander Shepard"
-    (concatenate 'list '(1 2) '(3 4)) ; Gives '(1 2 3 4)
+    (numberp 4) ; Returns whether 4 is a number)
+    (listp '(1 2 3)) ; Returns whether the supplied argument is a list
+
+### Misc
+
+    (random 5) ; Gets a random number between 0 and 4, which is one less than 5
     (compliment #'oddp) ; Gets you a function equivalent to #'evenp
     (time (print "1")) ; Prints performance numbers for the code within
 
@@ -345,7 +344,6 @@ Looping and collecting values
 
 ## Data-type: Lists
 
-
 To access a part of a list
 
     (car '(Shepard Joker Vakarian)) ; Gives 'Shepard
@@ -380,10 +378,6 @@ Remove duplicate elements
     (remove-duplicates '(1 2 2 3)) ; Returns a list of unique items
     (remove-duplicates '(1 2 3 3) :test #'equal) ; Determines duplicates based on the test function
 
-To retrieve the first occurrence of a pattern in a list
-
-    (find-if #'evenp '(1 2 3 4)) ; Returns "2" as the first even number in the list
-
 Fetching items from association lists (alists):
 
     (defvar *squad* '((Shepard Human)
@@ -394,10 +388,6 @@ Fetching items from association lists (alists):
 Finding items from lists:
 
     (find 1 '((a 1) (b 2)) :key #'cadr) ; Returns '(a 1)
-
-Check if at least one element matches the predicate:
-
-    (some #'oddp '(1 2 3)) ; Returns t
 
 Concatenating lists:
 
@@ -483,6 +473,23 @@ Reading properties of a structure:
 Change property value:
 
     (setf (crew-mate-class *garrus*) "Friend")
+
+## Sequence functions
+
+With their inbuilt type-checking, can work on multiple data-types seamlessly.
+
+    (length '(1 2 3)) ; Returns the length of the sequence
+    (find-if #'oddp '(1 2 3)) ; Returns the first odd number in the sequence
+    (count #\s "shells") ; Returns the count of occurrence of 's'
+    (position 3 '(2 3 1)) ; Returns the position of '3' in the sequence
+    (some #'oddp '(1 2 3)) ; Returns whether there's at least one odd number in the sequence
+    (every #'oddp '(1 2 3)) ; Returns whether or not all elements in the sequence are odd
+    (reduce #'+ '(1 2 3) :initial-value 0) ; Folds a sequence using '+'
+    (map 'list #'1+ '(1 2 3)) ; Returns a list with scaled values, as we asked for a list in return
+    (subseq "Commander" 3 6) ; Gets "man" out of the sequence
+    (sort '(3 1 2) #'>) ; Returns a sorted sequence
+    (concatenate 'string "Commander" "Shepard") ; Gives "Commander Shepard"
+    (concatenate 'list '(1 2) '(3 4)) ; Gives '(1 2 3 4)
 
 ## File I/O
 
