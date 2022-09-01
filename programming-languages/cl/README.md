@@ -154,6 +154,8 @@ Functions that need to refer to each other can be defined using `labels`
         ...
         )
 
+### Referring to functions from variables
+
 Referring to functions by names to pass them around to other functions
 
     (function add) ; Returns a reference to the function 'add'
@@ -308,7 +310,7 @@ The smart `when` and `unless`:
         ...
         )
 
-The heroic `cond`:
+The convenient `cond`:
 
     (cond (<condition1> (
                        ...
@@ -319,7 +321,7 @@ The heroic `cond`:
           ...
           (t 'nothing))
 
-The convenient `case`:
+The heroic `case`:
 
     (defparameter squad-mate 'Garrus)
     (case squad-mate
@@ -507,9 +509,9 @@ Inheriting properties from other structures
 With their inbuilt type-checking, can work on multiple data-types seamlessly.
 
     (length '(1 2 3)) ; Returns the length of the sequence
-    (find-if #'oddp '(1 2 3)) ; Returns the first odd number in the sequence
     (count #\s "shells") ; Returns the count of occurrence of 's'
     (position 3 '(2 3 1)) ; Returns the position of '3' in the sequence
+    (find-if #'oddp '(1 2 3)) ; Returns the first odd number in the sequence
     (some #'oddp '(1 2 3)) ; Returns whether there's at least one odd number in the sequence
     (every #'oddp '(1 2 3)) ; Returns whether or not all elements in the sequence are odd
     (reduce #'+ '(1 2 3) :initial-value 0) ; Folds a sequence using '+'
